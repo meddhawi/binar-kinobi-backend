@@ -1,4 +1,6 @@
 'use strict';
+require('dotenv').config();
+
 const {
   Model
 } = require('sequelize');
@@ -51,7 +53,7 @@ module.exports = (sequelize, DataTypes) => {
         email: this.email
       }
       // Generate token
-      return jwt.sign(payload, 'binarch7')
+      return jwt.sign(payload, process.env.SECRET_KEY)
     }
   }
   Users.init({
