@@ -1,4 +1,4 @@
-const { Users } = require('../models')
+const { Users, Products } = require('../models')
 const bcrypt = require('bcrypt')
 
 module.exports = {
@@ -73,6 +73,113 @@ module.exports = {
                 result: 'Server failed!',
                 error: error.message,
               })
+        }
+    },
+
+    dataById: async(req, res) => {
+        try {
+            const data = await Products.findByPk(req.params.id)
+            if(!data){
+                res.status(400).json({
+                    status: "ERROR",
+                    message: "no ID found"
+                })
+            }else{
+                res.status(200).json({
+                    status: "OK",
+                    result: data
+                })
+            }   
+        } catch (error) {
+            return res.status(500).json({
+                result: 'Server failed!',
+                error: error.message,
+              })
+        }
+    },
+
+    dataFindAll: async(req, res) => {
+        try {
+            const data = await Products.findAll()
+            if(!data){
+                res.status(400).json({
+                    status: "ERROR",
+                    message: "no Products found"
+                })
+            }else {
+                res.status(200).json({
+                    status: "OK",
+                    result: data
+                })
+            }   
+        } catch (error) {
+            return res.status(500).json({
+                result: 'Server failed!',
+                error: error.message,
+              })
+        }
+    },
+
+    dataAdd: async(req, res)=> {
+        try {
+            const {name, price, image_url} = req.body
+            console.log(name)
+            await Products.create({
+                name,
+                price, 
+                image_url
+            }).then(result => [
+                res.status(201).json({
+                    status: "OK",
+                    result
+                })
+            ])
+        } catch (error) {
+            return res.status(500).json({
+                result: 'Server failed!',
+                error: error.message,
+            })
+        }
+    },
+
+    dataUpdate: async(req,res) => {
+        try {
+            const id = req.params.id;
+            const { name, price, image_url} = req.body
+            await Products.update({
+                name, price, image_url
+            }, {where: {id}})
+
+            await Products.findByPk(id)
+            .then(result => {
+                res.status(201).json({
+                    status: "OK",
+                    result
+                })
+            })
+        } catch (error) {
+            return res.status(500).json({
+                result: 'Server failed!',
+                error: error.message,
+            })
+        }
+    },
+
+    dataDelete: async(req, res) => {
+        try {
+            const id = req.params.id;
+            await Products.destroy({where: {id}})
+            .then(result => {
+                res.status(200).json({
+                    status: "OK",
+                    result: `${id} deleted`
+                })
+            })
+        } catch (error) {
+            return res.status(500).json({
+                result: 'Server failed!',
+                error: error.message,
+            })
         }
     }
 }

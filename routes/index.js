@@ -9,4 +9,9 @@ router.get('/', function(req, res, next) {
 router.post('/login', api.login)
 router.post('/register', api.register)
 
+router.put('/products/:id', api.dataUpdate)
+router.post('/products', api.dataAdd)
+router.get('/products', api.dataFindAll)
+router.get('/products/:id', api.dataById)
+router.delete('/products/:id', api.dataDelete)
 module.exports = router;
