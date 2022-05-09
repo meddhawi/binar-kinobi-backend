@@ -146,17 +146,25 @@ module.exports = {
         try {
             const id = req.params.id;
             const { name, price, image_url} = req.body
-            await Products.update({
+            const updateResult = await Products.update({
                 name, price, image_url
             }, {where: {id}})
 
-            await Products.findByPk(id)
-            .then(result => {
-                res.status(201).json({
-                    status: "OK",
-                    result
+            if(updateResult == 0){
+                res.status(400).json({
+                    status: "ERROR",
+                    message: "no ID found"
                 })
-            })
+            }else{
+                await Products.findByPk(id)
+                .then(result => {
+                    // console.log(result)
+                    res.status(201).json({
+                        status: "OK",
+                        result
+                    })
+                })
+            }
         } catch (error) {
             return res.status(500).json({
                 result: 'Server failed!',
@@ -168,13 +176,19 @@ module.exports = {
     dataDelete: async(req, res) => {
         try {
             const id = req.params.id;
-            await Products.destroy({where: {id}})
-            .then(result => {
+            const deleteResult = await Products.destroy({where: {id}})
+
+            if(deleteResult != 0){
                 res.status(200).json({
                     status: "OK",
                     result: `${id} deleted`
                 })
-            })
+            }else if(deleteResult == 0){
+                res.status(400).json({
+                    status: "ERROR",
+                    message: "no ID found"
+                })
+            }
         } catch (error) {
             return res.status(500).json({
                 result: 'Server failed!',
