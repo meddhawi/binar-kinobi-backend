@@ -13,6 +13,12 @@ module.exports = {
                         }
                     })
                 })
+                .catch(error => {
+                    res.status(400).json({
+                        status: 'ERROR',
+                        error
+                    })
+                })
         } catch (error) {
             return res.status(500).json({
                 result: 'Server failed!',
