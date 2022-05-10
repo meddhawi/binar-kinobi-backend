@@ -4,7 +4,7 @@
 * Code uses Node.JS
 * [Sequelize](https://sequelize.org/) ORM is used. 
 * Postgres is required for development
-
+* Run the postman API using the link `http://localhost:3000/`
 
 ### Setup for development
 * clone repo `git remote add origin https://github.com/meddhawi/binar-kinobi-challenge.git`
@@ -16,5 +16,4 @@
 * Run the code using `npm start` or `npm run dev`
 
 ### Testing the API using Postman
-* Run the postman API using the link `http://localhost:3000`
-*  
+
