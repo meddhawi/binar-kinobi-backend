@@ -1,0 +1,636 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Binar Back-End Kinobi Challenge",
+    "description": "API Documentation",
+    "version": "1.0.0"
+  },
+  "host": "localhost",
+  "basePath": "/",
+  "schemes": [
+    "http"
+  ],
+  "tags": [
+    {
+      "name": "API Documentation - Binar Chapter-8",
+      "description": "About API binar chapter 8 challenge"
+    }
+  ],
+  "paths": {
+    "/register": {
+      "post": {
+        "tags": [
+          "API Documentation"
+        ],
+        "summary": "Register an account with the right information",
+        "consumes": [
+          "application/x-www-form-urlencoded",
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "user",
+            "in": "body",
+            "description": "Register a new account",
+            "schema": {
+              "type": "object",
+              "required": [
+                "username",
+                "email",
+                "password"
+              ],
+              "properties": {
+                "username": {
+                  "type": "string",
+                  "example": "Test"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "test@gmail.com"
+                },
+                "password": {
+                  "type": "string",
+                  "example": "i23456"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User created!",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "description": "OK"
+                },
+                "result": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer",
+                      "description": "The user ID.",
+                      "example": 1
+                    },
+                    "username": {
+                      "type": "string",
+                      "description": "The user username.",
+                      "example": "Test"
+                    },
+                    "email": {
+                      "type": "string",
+                      "description": "The user email.",
+                      "example": "test@gmail.com"
+                    },
+                    "password": {
+                      "type": "string",
+                      "description": "The user password.",
+                      "example": "awlkoal12455a5s4jwqlka"
+                    },
+                    "createdAt": {
+                      "type": "string",
+                      "description": "Date user is created.",
+                      "example": "2018-01-12T09:44:09.256Z"
+                    },
+                    "updatedAt": {
+                      "type": "string",
+                      "description": "Date user is updated.",
+                      "example": "2018-01-12T09:44:09.256Z"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "User already existed!",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "description": "failed",
+                  "example": "failed"
+                },
+                "message": {
+                  "type": "string",
+                  "description": "email already existed",
+                  "example": "email already existed"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/login": {
+      "post": {
+        "tags": [
+          "API Documentation"
+        ],
+        "summary": "log in an exisiting user",
+        "consumes": [
+          "application/x-www-form-urlencoded",
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "user",
+            "in": "body",
+            "description": "Logged in to an existing account",
+            "schema": {
+              "type": "object",
+              "required": [
+                "email",
+                "password"
+              ],
+              "properties": {
+                "email": {
+                  "type": "string",
+                  "example": "test@gmail.com"
+                },
+                "password": {
+                  "type": "string",
+                  "example": "i23456"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User logged in!",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "description": "Status response",
+                  "example": "OK"
+                },
+                "result": {
+                  "type": "object",
+                  "properties": {
+                    "accessToken": {
+                      "type": "string",
+                      "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJtZWRkaGF3aUBnbWFpbC5jb20iLCJpYXQiOjE2NTIxNjk2MzJ9.lol1_OE6mnVgEUDqa7DV4wEdRpAfjNxigeX0ptvUxuE"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "User doesn't exist!",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "description": "Status response",
+                  "example": "ERROR"
+                },
+                "result": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "Email not found!"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Wrong password!",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "description": "Status response",
+                  "example": "ERROR"
+                },
+                "result": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "Wrong password"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/products": {
+      "get": {
+        "tags": [
+          "API Documentation"
+        ],
+        "summary": "Get a list of available players",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "type": "string",
+            "description": "User's accessToken placed on Authorization Header"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Viewing all Products!",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "description": "Status response",
+                  "example": "OK"
+                },
+                "result": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "integer"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "price": {
+                        "type": "integer"
+                      },
+                      "image_url": {
+                        "type": "string"
+                      },
+                      "createdAt": {
+                        "type": "string"
+                      },
+                      "updatedAt": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              },
+              "example": {
+                "id": 1,
+                "name": "Handcrafted Metal Gloves",
+                "price": 96,
+                "image_url": "http://loremflickr.com/640/480/business",
+                "createdAt": "2022-05-09T07:02:17.791Z",
+                "updatedAt": "2022-05-09T07:02:17.791Z"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "API Documentation"
+        ],
+        "summary": "Add product to database",
+        "consumes": [
+          "application/x-www-form-urlencoded",
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string",
+            "description": "User's accessToken placed on Authorization Header"
+          },
+          {
+            "name": "user",
+            "in": "body",
+            "description": "Logged in to an existing account",
+            "schema": {
+              "type": "object",
+              "required": [
+                "email",
+                "password"
+              ],
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "Handcrafted Metal Gloves"
+                },
+                "price": {
+                  "type": "integer",
+                  "example": 688
+                },
+                "image_url": {
+                  "type": "string",
+                  "example": "http://loremflickr.com/640/480/business"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Product added!",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "description": "Status response",
+                  "example": "OK"
+                },
+                "result": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "integer",
+                        "example": 1
+                      },
+                      "name": {
+                        "type": "string",
+                        "example": "Handcrafted Metal Gloves"
+                      },
+                      "price": {
+                        "type": "integer",
+                        "example": 96
+                      },
+                      "image_url": {
+                        "type": "string",
+                        "example": "http://loremflickr.com/640/480/business"
+                      },
+                      "createdAt": {
+                        "type": "string",
+                        "example": "2022-05-09T07:02:17.791Z"
+                      },
+                      "updatedAt": {
+                        "type": "string",
+                        "example": "2022-05-09T07:02:17.791Z"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/products/id": {
+      "get": {
+        "tags": [
+          "API Documentation"
+        ],
+        "summary": "See a product based on its ID",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "type": "string",
+            "description": "User's accessToken placed on Authorization Header"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Product found!",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "description": "Status response",
+                  "example": "OK"
+                },
+                "result": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "integer",
+                        "example": 1
+                      },
+                      "name": {
+                        "type": "string",
+                        "example": "Handcrafted Metal Gloves"
+                      },
+                      "price": {
+                        "type": "integer",
+                        "example": 96
+                      },
+                      "image_url": {
+                        "type": "string",
+                        "example": "http://loremflickr.com/640/480/business"
+                      },
+                      "createdAt": {
+                        "type": "string",
+                        "example": "2022-05-09T07:02:17.791Z"
+                      },
+                      "updatedAt": {
+                        "type": "string",
+                        "example": "2022-05-09T07:02:17.791Z"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "ID doesn't exist!",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "description": "Status response",
+                  "example": "ERROR"
+                },
+                "result": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "no ID found!"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "API Documentation"
+        ],
+        "summary": "Update product to database",
+        "consumes": [
+          "application/x-www-form-urlencoded",
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string",
+            "description": "User's accessToken placed on Authorization Header"
+          },
+          {
+            "name": "user",
+            "in": "body",
+            "description": "Logged in to an existing account",
+            "schema": {
+              "type": "object",
+              "required": [
+                "email",
+                "password"
+              ],
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "Handcrafted Wooden Gloves"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Product Updated!",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "description": "Status response",
+                  "example": "OK"
+                },
+                "result": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "integer",
+                        "example": 1
+                      },
+                      "name": {
+                        "type": "string",
+                        "example": "Handcrafted Gloves"
+                      },
+                      "price": {
+                        "type": "integer",
+                        "example": 96
+                      },
+                      "image_url": {
+                        "type": "string",
+                        "example": "http://loremflickr.com/640/480/business"
+                      },
+                      "createdAt": {
+                        "type": "string",
+                        "example": "2022-05-09T07:02:17.791Z"
+                      },
+                      "updatedAt": {
+                        "type": "string",
+                        "example": "2022-06-09T07:02:17.791Z"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "ID doesn't exist!",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "description": "Status response",
+                  "example": "ERROR"
+                },
+                "result": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "no ID found!"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "API Documentation"
+        ],
+        "summary": "Delete a product to database by id",
+        "consumes": [
+          "application/x-www-form-urlencoded",
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string",
+            "description": "User's accessToken placed on Authorization Header"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Product Updated!",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "description": "Status response",
+                  "example": "OK"
+                },
+                "result": {
+                  "type": "string",
+                  "description": "result response",
+                  "example": "1 deleted"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
